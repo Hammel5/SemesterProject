@@ -26,19 +26,21 @@ void Date::initializeEndDay() {
 	cout << "Enter the day. (int) : " << endl;
 	while (!valid) {
 		cin >> endDay;
-		if (endDay >= startDay && endMonth == startMonth) {
+		if ((endDay >= startDay)&&(endMonth == startMonth)&&(endYear == startYear)) {
 			valid = true;
 			break;
 		}
-		else if (endMonth > startMonth) {
+		else if ((endMonth >= startMonth)&&(endYear == startYear)) {
+			valid = true;
+			break;
+		}
+		else if (endYear > startYear) {
 			valid = true;
 			break;
 		}
 		else {
-			cout << "Inavlid day" << endl;
-			if (endMonth == startMonth) {
-				cout << "Note: day must be greater than or equal to " << startDay << endl;
-			}
+			cout << "Invalid day" << endl;
+			cout << "Note: day must be greater than or equal to " << startDay << endl;
 		}
 	}
 }
@@ -47,7 +49,7 @@ void Date::initializeEndMonth() {
 	cout << "Enter the month. (int) : " << endl;
 	while (!valid) {
 		cin >> endMonth;
-		if (endMonth >= startMonth && endYear == startYear) {
+		if ((endMonth >= startMonth)&&(endYear == startYear)) {
 			valid = true;
 			break;
 		}
@@ -57,9 +59,7 @@ void Date::initializeEndMonth() {
 		}
 		else {
 			cout << "Invalid month" << endl;
-			if (endYear == startYear) {
-				cout << "Note: month must be greater than or equal to " << startMonth << endl;
-			}
+			cout << "Note: month must be greater than or equal to " << startMonth << endl;
 		}
 	}
 }

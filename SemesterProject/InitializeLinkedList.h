@@ -15,10 +15,12 @@ public:
 	~LinkedList();
 
 	void makeList();
-	//void add();
-	//void remove();
+	//void edit();
+	void remove(string course);
+	void newFile();
 	//void find();
 	void print();
+	void printCourseName();
 
 private:
 	Node* pos;

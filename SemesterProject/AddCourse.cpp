@@ -69,19 +69,21 @@ void AddCourse::addCourse() {
 		date.initializeStartMonth();
 		date.initializeStartDay();
 
+		string dash = "/";
+
 		outfile << "Date" << endl;
-		outfile << date.getStartYear() << endl;
-		outfile << date.getStartMonth() << endl;
-		outfile << date.getStartDay() << endl;
+		outfile << date.getStartYear() <<
+			dash << date.getStartMonth() <<
+			dash << date.getStartDay();
 
 		cout << "End date : " << endl;
 		date.initializeEndYear();
 		date.initializeEndMonth();
 		date.initializeEndDay();
 
-		outfile << date.getEndYear() << endl;
-		outfile << date.getEndMonth() << endl;
-		outfile << date.getEndDay() << endl;
+		outfile << " " << date.getEndYear() <<
+			dash << date.getEndMonth() <<
+			dash << date.getEndDay() << endl;
 
 		outfile << "END" << endl;
 

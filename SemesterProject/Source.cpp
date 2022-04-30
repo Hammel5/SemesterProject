@@ -14,6 +14,9 @@ int main() {
 	while (x != 5) {
 		LinkedList list;
 		AddCourse add;
+		string course;
+
+		list.makeList();
 
 		system("cls");
 
@@ -26,9 +29,7 @@ int main() {
 
 		switch (x) {
 		case 1: //All Courses
-			list.makeList();
 			list.print();
-			list.~LinkedList();
 			system("pause");
 			break;
 		case 2: //Add Course
@@ -37,7 +38,13 @@ int main() {
 			system("pause");
 			break;
 		case 3: //Delete Course
-			cout << ("Coming Soon...") << endl;
+			list.printCourseName();
+			cout << endl << "Which course do you want to delete? : ";
+			cin.ignore();
+			getline(cin, course);
+			list.remove(course);
+			remove("Courses.txt");
+			rename("NewFile.txt", "Courses.txt");
 			system("pause");
 			break;
 		case 4: //Leave
@@ -48,6 +55,8 @@ int main() {
 			system("pause");
 			break;
 		}
+		system("pause");
+		list.~LinkedList();
 	}
 
 	return 0;

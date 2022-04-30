@@ -12,7 +12,6 @@ struct Node {
 	string classroom;
 	string date;
 	Node* next;
-	Node* previous;
 };
 
 LinkedList::LinkedList() {
@@ -22,23 +21,91 @@ LinkedList::LinkedList() {
 }
 
 LinkedList::~LinkedList() {
-	Node* temp;
-	while (head != NULL) {
-		temp = head;
-		head = head->next;
-		cout << "working" << endl; //check
-		delete temp;
+}
+
+void LinkedList::newFile() {
+	ofstream outfile;
+	outfile.open("NewFile.txt");
+
+	pos = head;
+	while (pos != NULL) {
+		outfile << endl << "Class" << endl;
+		outfile << pos->name << endl;
+		outfile << "ID" << endl;
+		outfile << pos->id << endl;
+		outfile << "Credits" << endl;
+		outfile << pos->credits << endl;
+		outfile << "Type" << endl;
+		outfile << pos->type << endl;
+		outfile << "Max" << endl;
+		outfile << pos->maxCapacity << endl;
+		outfile << "Days" << endl;
+		outfile << pos->daysOfWeek << endl;
+		outfile << "Start" << endl;
+		outfile << pos->start << endl;
+		outfile << "End" << endl;
+		outfile << pos->end << endl;
+		outfile << "Room" << endl;
+		outfile << pos->classroom << endl;
+
+		outfile << "Date" << endl;
+		outfile << pos->date << endl;
+
+		outfile << "END" << endl;
+
+		pos = pos->next;
 	}
+	outfile << "END OF LIST" << endl;
+	outfile.close();
+}
+
+void LinkedList::remove(string course) {
+	pos = head;
+	Node* temp = NULL;
+	while (pos != NULL) {
+		cout << "While Test" << endl;
+		if (pos->name == course) {
+			cout << "Test 1" << endl;
+			temp = pos;
+			head = pos->next;
+			delete temp;
+			break;
+		}
+		else if (pos->next->name == course) {
+			cout << "Test 2" << endl;
+			temp = pos->next;
+			pos->next = pos->next->next;
+			delete temp;
+			break;
+		}
+		else {
+			cout << "Test 3" << endl;
+			pos = pos->next;
+		}
+		cout << "Something" << endl;
+	}
+	cout << "Loop ended" << endl;
+	newFile();
 }
 
 void LinkedList::print() {
-	while (head != NULL) {
+	pos = head;
+	while (pos != NULL) {
 		cout << "------------------------------" << endl;
-		cout << head->name << endl;
-		cout << head->daysOfWeek << endl;
-		cout << head->daysOfWeek << endl;
-		cout << head->date << endl;
-		head = head->next;
+		cout << pos->name << endl;
+		cout << pos->daysOfWeek << endl;
+		cout << pos->classroom << endl;
+		cout << pos->date << endl;
+		pos = pos->next;
+	}
+}
+
+void LinkedList::printCourseName() {
+	pos = head;
+	while (pos != NULL) {
+		cout << "______________________________" << endl << endl;
+		cout << pos->name << endl;
+		pos = pos->next;
 	}
 }
 
@@ -58,7 +125,6 @@ void LinkedList::makeList() {
 		//cout << current << endl; //Check
 		Node* temp = new Node();
 		temp->next = NULL;
-		temp->previous = NULL;
 		if (!infile) {
 			continue;
 		}
@@ -106,21 +172,17 @@ void LinkedList::makeList() {
 				temp->classroom = current;
 			}
 			else if (current == "Date") {
-				for (int x = 0; x < 6; x++) {
-					getline(infile, current);
-					temp->date = temp->date + "/" + current;
-				}
-				//cout << temp->date << endl; //Check
+				getline(infile, current);
+				temp->date = current;
 			}
 		}
 		//cout << "'END' loop ended" << endl; //Check
 		if (head == NULL) {
-			pos = temp;
 			head = temp;
+			pos = temp;
 			tail = temp;
 		}
 		else {
-			pos->previous = pos;
 			pos->next = temp;
 			pos = pos->next;
 			tail = pos;
